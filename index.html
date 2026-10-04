@@ -2,67 +2,149 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport"
-  content="width=device-width,
-  initial-scale=1.0">
-    <title>Shopping Website</title>
-<link rel="stylesheet" href="cart.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ShopNow</title>
+  <link rel="stylesheet" href="cart.css">
 </head>
-  <body>
-    <header>
-      <h2>ShopNow</h2>
-      <nav>
+<body>
+
+  <header id="top">
+    <div class="top-row">
+      <div class="hamburger" id="hamburger">
+        <span></span><span></span><span></span>
+      </div>
+      <div class="logo-box">ShopNow</div>
+      <div class="top-actions">
+        <a href="#" class="action">
+          <span class="count pink" id="wish-count">0</span>
+          <span>♥</span><span class="label">Wishlist</span>
+        </a>
+        <a href="#cart" class="action">
+          <span class="count yellow" id="cart-count">0</span>
+          <span>🛒</span><span class="label">Cart</span>
+        </a>
+      </div>
+    </div>
+
+    <form class="search" id="search-form">
+      <input type="text" id="search-input" placeholder="Search products, categories & pages">
+      <button type="submit">🔍</button>
+    </form>
+
+    <div class="deliver">📍 Deliver to <strong>Choose location</strong></div>
+  </header>
+
+  <div id="overlay"></div>
+
+  <nav id="menu">
+    <button id="close-menu" class="close-btn">&times;</button>
+    <div class="menu-user">
+      <div class="avatar"></div>
+      <a href="#" class="login-link">Login / Sign Up</a>
+    </div>
+    <ul>
+      <li><a href="#top">Home</a></li>
+      <li><a href="#about">About us</a></li>
+      <li><a href="#contact">Contact us</a></li>
+      <li><a href="#cart">My Cart</a></li>
+    </ul>
+    <h4>Shop by Category</h4>
+    <ul>
+      <li><a href="#categories">Clothing</a></li>
+      <li><a href="#categories">Shoes</a></li>
+      <li><a href="#shop">Deals</a></li>
+    </ul>
+  </nav>
+
+  <main>
+    <section class="hero">
+      <div class="hero-card">
+        <h1>ShopNow Outfits</h1>
+        <p>Top brand, limited time deals</p>
+        <a href="#shop" class="hero-link">Shop Now</a>
+      </div>
+    </section>
+
+    <section class="card">
+      <h3>Sign in for best experience</h3>
+      <a href="#" class="teal-link">Sign in securely</a>
+    </section>
+
+    <section class="card" id="categories">
+      <h3>Top categories</h3>
+      <div class="categories">
+        <div class="category">Clothing</div>
+        <div class="category">Shoes</div>
+        <div class="category">Deals</div>
+      </div>
+    </section>
+
+    <section class="card" id="shop">
+      <div class="section-head">
+        <h2>Today's Deals</h2>
+        <div class="arrows">
+          <button id="prev">◀</button>
+          <button id="next">▶</button>
+        </div>
+      </div>
+      <div class="slider" id="product-list"></div>
+    </section>
+
+    <section class="card" id="cart">
+      <h2>Shopping Cart</h2>
+      <ul id="cart-items"></ul>
+      <p id="cart-total">Total: $0</p>
+      <button id="clear-cart">Clear Cart</button>
+    </section>
+
+    <section class="card" id="about">
+      <h2>About ShopNow</h2>
+      <p>ShopNow is a student project: an online shop made to learn HTML, CSS and JavaScript.</p>
+    </section>
+
+    <section class="card" id="contact">
+      <h2>Contact Us</h2>
+      <p>Email: michaelonedibe73@gmail.com</p>
+      <p>Phone: 08124713885</p>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-links">
+      <h4>Get to Know Us</h4>
       <ul>
-        <li><a href="#">Home</a></li>
-        <li><a href="#">Shop</a></li>
-        <li><a href="#">Categories</a></li>
-        <li><a href="#">Contact</a></li>
+        <li><a href="#about">About us</a></li>
+        <li><a href="#contact">Contact us</a></li>
       </ul>
-      </nav>
-      <p id="cart-count">Cart (0)</p>
-<div class="hamburger">
-  <span></span>
-  <span></span>
-  <span></span>
-</div>
-    </header>
-<section class="products">
-  <h2>Our Product</h2>
-  <div class="product-card">
-  <img src="Fileone.jpg" alt="Fileone">
-  <h3>Classic Outfit</h3>
-  <p>Comfortable and Stylish Outfit</p>
-  <p>$20</p>
-  <button>Add to Cart</button>
-  </div>
-  <div class="product-card">
-  <img src="Filetwo.jpg" alt="Filetwo">
-    <h3>Nice Outfit</h3>
-      <p>Nice and Comfortable Outfit</p>
-      <p>$50</p>
-      <button>Add to Cart</button>
-  </div>
-<div class="product-card">
-  <img src="Filethree.jpg" alt="Filethree">
-    <h3>Cute Outfit</h3>
-      <p>Cute and Stylish Outfit</p>
-      <p>$60</p>
-      <button>Add to Cart</button>
+      <h4>Customer Service</h4>
+      <ul>
+        <li><a href="#cart">My cart</a></li>
+        <li><a href="#shop">Shop</a></li>
+      </ul>
     </div>
-<div class="product-card">
-  <img src="Filefour.jpg" alt="Filefour">
-    <h3>Bold Outfit</h3>
-      <p>Nice and Stylish Outfit</p>
-      <p>$70</p>
-      <button>Add to Cart</button>
+
+    <div class="discount">
+      <h3>🎁 Get 10% Off Your First Order</h3>
+      <p>Join our customers and shop smart at ShopNow.</p>
+      <form id="discount-form">
+        <input type="text" placeholder="Your Name" required>
+        <input type="email" placeholder="Enter your email" required>
+        <button type="submit">Get My Discount</button>
+      </form>
+      <p id="discount-msg"></p>
+      <small>No spam. Unsubscribe anytime.</small>
     </div>
-</section>
-  <section class="cart">
-  <h2>Shopping Cart</h2>
-    <ul id="cart-items"></ul>
-    <p id="cart-total">Total: $0</p>
-    <button id="clear-cart">Clear Cart</button>
-      </section>
-<script src="cart.js"></script>
-  </body>
-</html>
+
+    <div class="footer-bottom">
+      <span>© 2026 ShopNow</span>
+      <span class="socials"><b>f</b><b>ig</b><b>x</b></span>
+    </div>
+  </footer>
+
+  <div id="toast" class="toast"></div>
+  <a href="https://wa.me/2348124713885?text=Hello%20ShopNow" class="whatsapp" target="_blank">
+  <img src="whatsapp.jpg" alt="WhatsApp" width="58" height="58">
+
+  <script src="cart.js"></script>
+</body>
+  </html>
