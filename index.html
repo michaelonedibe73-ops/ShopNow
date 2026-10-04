@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+  content="width=device-width,
+  initial-scale=1.0">
+    <title>Shopping Website</title>
+<link rel="stylesheet" href="cart.css">
+</head>
+  <body>
+    <header>
+      <h2>ShopNow</h2>
+      <nav>
+      <ul>
+        <li><a href="#">Home</a></li>
+        <li><a href="#">Shop</a></li>
+        <li><a href="#">Categories</a></li>
+        <li><a href="#">Contact</a></li>
+      </ul>
+      </nav>
+      <p id="cart-count">Cart (0)</p>
+<div class="hamburger">
+  <span></span>
+  <span></span>
+  <span></span>
+</div>
+    </header>
+<section class="products">
+  <h2>Our Product</h2>
+  <div class="product-card">
+  <img src="Fileone.jpg" alt="Fileone">
+  <h3>Classic Outfit</h3>
+  <p>Comfortable and Stylish Outfit</p>
+  <p>$20</p>
+  <button>Add to Cart</button>
+  </div>
+  <div class="product-card">
+  <img src="Filetwo.jpg" alt="Filetwo">
+    <h3>Nice Outfit</h3>
+      <p>Nice and Comfortable Outfit</p>
+      <p>$50</p>
+      <button>Add to Cart</button>
+  </div>
+<div class="product-card">
+  <img src="Filethree.jpg" alt="Filethree">
+    <h3>Cute Outfit</h3>
+      <p>Cute and Stylish Outfit</p>
+      <p>$60</p>
+      <button>Add to Cart</button>
+    </div>
+<div class="product-card">
+  <img src="Filefour.jpg" alt="Filefour">
+    <h3>Bold Outfit</h3>
+      <p>Nice and Stylish Outfit</p>
+      <p>$70</p>
+      <button>Add to Cart</button>
+    </div>
+</section>
+  <section class="cart">
+  <h2>Shopping Cart</h2>
+    <ul id="cart-items"></ul>
+    <p id="cart-total">Total: $0</p>
+    <button id="clear-cart">Clear Cart</button>
+      </section>
+<script src="cart.js"></script>
+  </body>
+</html>
