@@ -1,43 +1,201 @@
-let total = 0;
-let cartCount = 0;
+// @ts-nocheck
+// ---------- Data (the back end will replace this later) ----------
+const products = [
+  { id: 1, name: "Classic Outfit", desc: "Comfortable and Stylish Outfit", price: 20, oldPrice: 28, badge: "New", image: "Fileone.jpg" },
+  { id: 2, name: "Nice Outfit", desc: "Nice and Comfortable Outfit", price: 50, oldPrice: null, badge: "", image: "Filetwo.jpg" },
+  { id: 3, name: "Cute Outfit", desc: "Cute and Stylish Outfit", price: 60, oldPrice: 80, badge: "Sale", image: "Filethree.jpg" },
+  { id: 4, name: "Bold Outfit", desc: "Nice and Stylish Outfit", price: 70, oldPrice: null, badge: "New", image: "Filefour.jpg" }
+];
 
+let cart = [];
+let wishlist = [];
+
+// ---------- Page elements ----------
+const productList = document.querySelector("#product-list");
 const cartItems = document.querySelector("#cart-items");
 const cartTotal = document.querySelector("#cart-total");
 const cartCountText = document.querySelector("#cart-count");
+const wishCount = document.querySelector("#wish-count");
 
-const hamburger = document.querySelector(".hamburger");
-const nav = document.querySelector("nav");
+const hamburger = document.querySelector("#hamburger");
+const nav = document.querySelector("#menu");
+const overlay = document.querySelector("#overlay");
+const closeMenu = document.querySelector("#close-menu");
 
-hamburger.addEventListener("click", () => {
-  nav.classList.toggle("active");
+// ---------- Menu ----------
+function openMenu() {
+  nav.classList.add("active");
+  overlay.classList.add("show");
+}
+
+function closeTheMenu() {
+  nav.classList.remove("active");
+  overlay.classList.remove("show");
+}
+
+hamburger.addEventListener("click", openMenu);
+closeMenu.addEventListener("click", closeTheMenu);
+overlay.addEventListener("click", closeTheMenu);
+document.querySelectorAll("#menu a").forEach((link) => {
+  link.addEventListener("click", closeTheMenu);
 });
 
-const cartButtons = document.querySelectorAll(".product-card button");
+// ---------- Products ----------
+function renderProducts(list) {
+  productList.innerHTML = "";
 
-cartButtons.forEach((button) => {
-  button.addEventListener("click", () => {
-    const card = button.parentElement;
-    const name = card.querySelector("h3").textContent;
-    const price = Number(card.querySelectorAll("p")[1].textContent.replace("$", ""));
+  if (list.length === 0) {
+    productList.innerHTML = "<p>No products found.</p>";
+    return;
+  }
 
-    const li = document.createElement("li");
-    li.textContent = name + " - $" + price;
-    cartItems.appendChild(li);
+  list.forEach((p) => {
+    let priceHTML = "$" + p.price;
+    if (p.oldPrice) {
+      const save = Math.round(((p.oldPrice - p.price) / p.oldPrice) * 100);
+      priceHTML += ` <s>$${p.oldPrice}</s> <span class="save">Save ${save}%</span>`;
+    }
 
-    total += price;
-    cartCount++;
+    const tag = p.badge
+      ? `<span class="tag ${p.badge === "Sale" ? "sale" : ""}">${p.badge}</span>`
+      : "";
 
-    cartCountText.textContent = "Cart (" + cartCount + ")";
-    cartTotal.textContent = "Total: $" + total;
+    const liked = wishlist.includes(p.id);
+
+    productList.innerHTML += `
+      <div class="product-card">
+        ${tag}
+        <div class="img-wrap"><img src="${p.image}" alt="${p.name}"></div>
+        <h3>${p.name}</h3>
+        <p class="rating">(0)</p>
+        <p class="price">${priceHTML}</p>
+        <p class="stock">In Stock</p>
+        <div class="card-actions">
+          <button class="icon-btn wish-btn ${liked ? "liked" : ""}" data-id="${p.id}">${liked ? "♥" : "♡"}</button>
+          <button class="icon-btn view-btn" data-id="${p.id}">👁</button>
+        </div>
+        <div class="buy-row">
+          <button class="add-btn" data-id="${p.id}">Add to cart</button>
+          <button class="buy-btn" data-id="${p.id}">Buy Now</button>
+        </div>
+      </div>`;
   });
+}
+
+function addToCart(id) {
+  const product = products.find((p) => p.id === id);
+  cart.push({ name: product.name, price: product.price });
+  renderCart();
+}
+
+productList.addEventListener("click", (e) => {
+  const addBtn = e.target.closest(".add-btn");
+  const buyBtn = e.target.closest(".buy-btn");
+  const wishBtn = e.target.closest(".wish-btn");
+  const viewBtn = e.target.closest(".view-btn");
+
+  if (addBtn) {
+    addToCart(Number(addBtn.dataset.id));
+  }
+
+  if (buyBtn) {
+    addToCart(Number(buyBtn.dataset.id));
+    document.querySelector("#cart").scrollIntoView();
+  }
+
+  if (viewBtn) {
+    const p = products.find((x) => x.id === Number(viewBtn.dataset.id));
+    alert(p.name + ": " + p.desc);
+  }
+
+  if (wishBtn) {
+    const id = Number(wishBtn.dataset.id);
+    if (wishlist.includes(id)) {
+      wishlist = wishlist.filter((x) => x !== id);
+    } else {
+      wishlist.push(id);
+    }
+    wishBtn.classList.toggle("liked");
+    wishBtn.textContent = wishlist.includes(id) ? "♥" : "♡";
+    wishCount.textContent = wishlist.length;
+  }
 });
 
-const clearButton = document.querySelector("#clear-cart");
+// ---------- Slider arrows ----------
+document.querySelector("#prev").addEventListener("click", () => {
+  productList.scrollBy({ left: -300, behavior: "smooth" });
+});
 
-clearButton.addEventListener("click", () => {
+document.querySelector("#next").addEventListener("click", () => {
+  productList.scrollBy({ left: 300, behavior: "smooth" });
+});
+
+// ---------- Search ----------
+document.querySelector("#search-form").addEventListener("submit", (e) => {
+  e.preventDefault();
+  const text = document.querySelector("#search-input").value.toLowerCase();
+  const found = products.filter((p) =>
+    (p.name + " " + p.desc).toLowerCase().includes(text)
+  );
+  renderProducts(found);
+  document.querySelector("#shop").scrollIntoView();
+});
+
+// ---------- Cart ----------
+function renderCart() {
   cartItems.innerHTML = "";
-  total = 0;
-  cartCount = 0;
-  cartTotal.textContent = "Total: $0";
-  cartCountText.textContent = "Cart (0)";
+  let total = 0;
+
+  cart.forEach((item, index) => {
+    total += item.price;
+    const li = document.createElement("li");
+    li.innerHTML = `<span>${item.name} - $${item.price}</span>
+      <button class="remove-btn" data-index="${index}">Remove</button>`;
+    cartItems.appendChild(li);
+  });
+
+  cartTotal.textContent = "Total: $" + total;
+  cartCountText.textContent = cart.length;
+}
+
+cartItems.addEventListener("click", (e) => {
+  const btn = e.target.closest(".remove-btn");
+  if (btn) {
+    cart.splice(Number(btn.dataset.index), 1);
+    renderCart();
+  }
 });
+
+document.querySelector("#clear-cart").addEventListener("click", () => {
+  cart = [];
+  renderCart();
+});
+
+// ---------- Footer discount form ----------
+document.querySelector("#discount-form").addEventListener("submit", (e) => {
+  e.preventDefault();
+  document.querySelector("#discount-msg").textContent =
+    "Thanks! Your discount is on the way.";
+  e.target.reset();
+});
+
+// ---------- Demo popup ----------
+const toast = document.querySelector("#toast");
+const cities = ["Lagos", "Abuja", "Ibadan", "Enugu", "Port Harcourt"];
+
+function showToast() {
+  const p = products[Math.floor(Math.random() * products.length)];
+  const city = cities[Math.floor(Math.random() * cities.length)];
+  toast.textContent = "Someone from " + city + " purchased " + p.name;
+  toast.classList.add("show");
+  setTimeout(() => toast.classList.remove("show"), 4000);
+}
+
+setTimeout(() => {
+  showToast();
+  setInterval(showToast, 15000);
+}, 5000);
+
+// ---------- Start ----------
+renderProducts(products);
+renderCart();
