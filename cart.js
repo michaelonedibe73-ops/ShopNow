@@ -7,8 +7,8 @@ const products = [
   { id: 4, name: "Bold Outfit", desc: "Nice and Stylish Outfit", price: 70, oldPrice: null, badge: "New", image: "Filefour.jpg" }
 ];
 
-let cart = [];
-let wishlist = [];
+let cart = JSON.parse(localStorage.getItem("shopnow_cart")) || [];
+let wishlist = JSON.parse(localStorage.getItem("shopnow_wishlist")) || [];
 
 // ---------- Page elements ----------
 const productList = document.querySelector("#product-list");
@@ -21,6 +21,15 @@ const hamburger = document.querySelector("#hamburger");
 const nav = document.querySelector("#menu");
 const overlay = document.querySelector("#overlay");
 const closeMenu = document.querySelector("#close-menu");
+
+// ---------- Save to localStorage ----------
+function saveCart() {
+  localStorage.setItem("shopnow_cart", JSON.stringify(cart));
+}
+
+function saveWishlist() {
+  localStorage.setItem("shopnow_wishlist", JSON.stringify(wishlist));
+}
 
 // ---------- Menu ----------
 function openMenu() {
@@ -84,7 +93,18 @@ function renderProducts(list) {
 
 function addToCart(id) {
   const product = products.find((p) => p.id === id);
-  cart.push({ name: product.name, price: product.price });
+  const existing = cart.find((item) => item.id === id);
+
+  if (existing) {
+    existing.qty += 1;
+  } else {
+    cart.push({
+      id: product.id,
+      name: product.name,
+      price: product.price,
+      qty: 1
+    });
+  }
   renderCart();
 }
 
@@ -118,6 +138,7 @@ productList.addEventListener("click", (e) => {
     wishBtn.classList.toggle("liked");
     wishBtn.textContent = wishlist.includes(id) ? "♥" : "♡";
     wishCount.textContent = wishlist.length;
+    saveWishList();
   }
 });
 
@@ -145,29 +166,46 @@ document.querySelector("#search-form").addEventListener("submit", (e) => {
 function renderCart() {
   cartItems.innerHTML = "";
   let total = 0;
+  let itemCount = 0;
+
+  if (cart.length === 0) {
+    cartItems.innerHTML = "<li>Your cart is empty.</li>";
+  }
 
   cart.forEach((item, index) => {
-    total += item.price;
+    const lineTotal = item.price * item.qty;
+    total += lineTotal;
+    itemCount += item.qty;
+
     const li = document.createElement("li");
-    li.innerHTML = `<span>${item.name} - $${item.price}</span>
-      <button class="remove-btn" data-index="${index}">Remove</button>`;
+    li.innerHTML = `
+      <span>${item.name} × ${item.qty} — $${lineTotal}</span>
+      <button class="remove-btn" data-index="${index}">Remove</button>
+    `;
     cartItems.appendChild(li);
   });
 
   cartTotal.textContent = "Total: $" + total;
-  cartCountText.textContent = cart.length;
+  cartCountText.textContent = itemCount;
 }
 
 cartItems.addEventListener("click", (e) => {
   const btn = e.target.closest(".remove-btn");
   if (btn) {
-    cart.splice(Number(btn.dataset.index), 1);
-    renderCart();
+    const index = Number(btn.dataset.index);
+    if (cart[index].qty > 1) {
+  cart[index].qty -= 1;
+} else {
+  cart.splice(index, 1);
+}
+saveCart();
+renderCart();
   }
 });
 
 document.querySelector("#clear-cart").addEventListener("click", () => {
   cart = [];
+  savecart();
   renderCart();
 });
 
