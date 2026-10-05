@@ -1,5 +1,6 @@
 // @ts-nocheck
-// ---------- Data (the back end will replace this later) ----------
+
+// ---------- Data ----------
 const products = [
   { id: 1, name: "Classic Outfit", desc: "Comfortable and Stylish Outfit", price: 20, oldPrice: 28, badge: "New", image: "Fileone.jpg" },
   { id: 2, name: "Nice Outfit", desc: "Nice and Comfortable Outfit", price: 50, oldPrice: null, badge: "", image: "Filetwo.jpg" },
@@ -7,6 +8,7 @@ const products = [
   { id: 4, name: "Bold Outfit", desc: "Nice and Stylish Outfit", price: 70, oldPrice: null, badge: "New", image: "Filefour.jpg" }
 ];
 
+// ---------- Load saved data ----------
 let cart = JSON.parse(localStorage.getItem("shopnow_cart")) || [];
 let wishlist = JSON.parse(localStorage.getItem("shopnow_wishlist")) || [];
 
@@ -22,7 +24,7 @@ const nav = document.querySelector("#menu");
 const overlay = document.querySelector("#overlay");
 const closeMenu = document.querySelector("#close-menu");
 
-// ---------- Save to localStorage ----------
+// ---------- Save functions ----------
 function saveCart() {
   localStorage.setItem("shopnow_cart", JSON.stringify(cart));
 }
@@ -49,7 +51,7 @@ document.querySelectorAll("#menu a").forEach((link) => {
   link.addEventListener("click", closeTheMenu);
 });
 
-// ---------- Products ----------
+// ---------- Render products ----------
 function renderProducts(list) {
   productList.innerHTML = "";
 
@@ -91,6 +93,7 @@ function renderProducts(list) {
   });
 }
 
+// ---------- Cart logic ----------
 function addToCart(id) {
   const product = products.find((p) => p.id === id);
   const existing = cart.find((item) => item.id === id);
@@ -105,9 +108,38 @@ function addToCart(id) {
       qty: 1
     });
   }
+
+  saveCart();
   renderCart();
 }
 
+function renderCart() {
+  cartItems.innerHTML = "";
+  let total = 0;
+  let itemCount = 0;
+
+  if (cart.length === 0) {
+    cartItems.innerHTML = "<li>Your cart is empty.</li>";
+  }
+
+  cart.forEach((item, index) => {
+    const lineTotal = item.price * item.qty;
+    total += lineTotal;
+    itemCount += item.qty;
+
+    const li = document.createElement("li");
+    li.innerHTML = `
+      <span>${item.name} × ${item.qty} — $${lineTotal}</span>
+      <button class="remove-btn" data-index="${index}">Remove</button>
+    `;
+    cartItems.appendChild(li);
+  });
+
+  cartTotal.textContent = "Total: $" + total;
+  cartCountText.textContent = itemCount;
+}
+
+// ---------- Product clicks ----------
 productList.addEventListener("click", (e) => {
   const addBtn = e.target.closest(".add-btn");
   const buyBtn = e.target.closest(".buy-btn");
@@ -138,7 +170,7 @@ productList.addEventListener("click", (e) => {
     wishBtn.classList.toggle("liked");
     wishBtn.textContent = wishlist.includes(id) ? "♥" : "♡";
     wishCount.textContent = wishlist.length;
-    saveWishList();
+    saveWishlist();
   }
 });
 
@@ -162,54 +194,29 @@ document.querySelector("#search-form").addEventListener("submit", (e) => {
   document.querySelector("#shop").scrollIntoView();
 });
 
-// ---------- Cart ----------
-function renderCart() {
-  cartItems.innerHTML = "";
-  let total = 0;
-  let itemCount = 0;
-
-  if (cart.length === 0) {
-    cartItems.innerHTML = "<li>Your cart is empty.</li>";
-  }
-
-  cart.forEach((item, index) => {
-    const lineTotal = item.price * item.qty;
-    total += lineTotal;
-    itemCount += item.qty;
-
-    const li = document.createElement("li");
-    li.innerHTML = `
-      <span>${item.name} × ${item.qty} — $${lineTotal}</span>
-      <button class="remove-btn" data-index="${index}">Remove</button>
-    `;
-    cartItems.appendChild(li);
-  });
-
-  cartTotal.textContent = "Total: $" + total;
-  cartCountText.textContent = itemCount;
-}
-
+// ---------- Cart remove ----------
 cartItems.addEventListener("click", (e) => {
   const btn = e.target.closest(".remove-btn");
   if (btn) {
     const index = Number(btn.dataset.index);
     if (cart[index].qty > 1) {
-  cart[index].qty -= 1;
-} else {
-  cart.splice(index, 1);
-}
-saveCart();
-renderCart();
+      cart[index].qty -= 1;
+    } else {
+      cart.splice(index, 1);
+    }
+    saveCart();
+    renderCart();
   }
 });
 
+// ---------- Clear cart ----------
 document.querySelector("#clear-cart").addEventListener("click", () => {
   cart = [];
-  savecart();
+  saveCart();
   renderCart();
 });
 
-// ---------- Footer discount form ----------
+// ---------- Discount form ----------
 document.querySelector("#discount-form").addEventListener("submit", (e) => {
   e.preventDefault();
   document.querySelector("#discount-msg").textContent =
@@ -237,3 +244,4 @@ setTimeout(() => {
 // ---------- Start ----------
 renderProducts(products);
 renderCart();
+wishCount.textContent = wishlist.length;
