@@ -23,6 +23,7 @@ const hamburger = document.querySelector("#hamburger");
 const nav = document.querySelector("#menu");
 const overlay = document.querySelector("#overlay");
 const closeMenu = document.querySelector("#close-menu");
+const resetSearchBtn = document.querySelector("#reset-search");
 
 // ---------- Save functions ----------
 function saveCart() {
