@@ -192,6 +192,14 @@ document.querySelector("#search-form").addEventListener("submit", (e) => {
     (p.name + " " + p.desc).toLowerCase().includes(text)
   );
   renderProducts(found);
+  resetSearchBtn.style.display = "block";
+  document.querySelector("#shop").scrollIntoView();
+});
+
+resetSearchBtn.addEventListener("click", () => {
+  document.querySelector("#search-input").value = "";
+  renderProducts(products);
+  resetSearchBtn.style.display = "none";
   document.querySelector("#shop").scrollIntoView();
 });
 
