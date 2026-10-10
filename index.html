@@ -155,5 +155,30 @@
   </a>
 
   <script src="cart.js"></script>
+  <!-- Product Modal -->
+<div id="product-modal" class="modal-overlay">
+  <div class="modal-box">
+    <button class="modal-close" id="modal-close">&times;</button>
+    <div class="modal-img">
+      <img id="modal-image" src="" alt="">
+    </div>
+    <div class="modal-content">
+      <h2 id="modal-name"></h2>
+      <p class="rating" id="modal-rating">★★★★★ (12 reviews)</p>
+      <p id="modal-desc" style="color: #555; margin: 8px 0 14px;"></p>
+      <p class="price" id="modal-price"></p>
+      <p class="stock">In Stock</p>
+      <div class="qty-row">
+        <button class="qty-btn" id="qty-minus">−</button>
+        <span id="qty-value">1</span>
+        <button class="qty-btn" id="qty-plus">+</button>
+      </div>
+      <div class="modal-actions">
+        <button class="buy-btn" id="modal-buy">Buy Now</button>
+        <button class="add-btn modal-add" id="modal-add">Add to Cart</button>
+      </div>
+    </div>
+  </div>
+</div>
 </body>
 </html>
