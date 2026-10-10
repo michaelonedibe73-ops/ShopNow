@@ -164,8 +164,7 @@ productList.addEventListener("click", (e) => {
   }
 
   if (viewBtn) {
-    const p = products.find((x) => x.id === Number(viewBtn.dataset.id));
-    alert(p.name + ": " + p.desc);
+  openModal(Number(viewBtn.dataset.id));
   }
 
   if (wishBtn) {
