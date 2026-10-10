@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login — ShopNow</title>
+  <link rel="stylesheet" href="cart.css">
+</head>
+<body>
+
+  <header id="top">
+    <div class="top-row">
+      <div class="hamburger" id="hamburger">
+        <span></span><span></span><span></span>
+      </div>
+      <div class="logo-box">ShopNow</div>
+      <div class="top-actions">
+        <a href="index.html" class="action">
+          <span>🏠</span><span class="label">Home</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <div id="overlay"></div>
+
+  <nav id="menu">
+    <button id="close-menu" class="close-btn">&times;</button>
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html">About us</a></li>
+      <li><a href="contact.html">Contact us</a></li>
+      <li><a href="index.html#cart">My Cart</a></li>
+    </ul>
+  </nav>
+
+  <main>
+    <section class="card auth-card">
+      <h2 id="auth-title">Welcome Back</h2>
+      <p id="auth-subtitle">Sign in to continue shopping</p>
+
+      <div class="auth-tabs">
+        <button class="auth-tab active" id="tab-login">Login</button>
+        <button class="auth-tab" id="tab-signup">Sign Up</button>
+      </div>
+
+      <form id="auth-form" class="auth-form">
+        <div id="name-field" style="display: none;">
+          <input type="text" id="auth-name" placeholder="Full Name">
+        </div>
+        <input type="email" id="auth-email" placeholder="Email address" required>
+        <input type="password" id="auth-password" placeholder="Password" required minlength="4">
+        <button type="submit" id="auth-submit">Login</button>
+      </form>
+
+      <p id="auth-msg" class="auth-msg"></p>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-bottom">
+      <span>© 2026 ShopNow</span>
+      <span class="socials"><b>f</b><b>ig</b><b>x</b></span>
+    </div>
+  </footer>
+
+  <script>
+    const hamburger = document.querySelector("#hamburger");
+    const nav = document.querySelector("#menu");
+    const overlay = document.querySelector("#overlay");
+    const closeMenu = document.querySelector("#close-menu");
+
+    hamburger.addEventListener("click", () => {
+      nav.classList.add("active");
+      overlay.classList.add("show");
+    });
+
+    closeMenu.addEventListener("click", () => {
+      nav.classList.remove("active");
+      overlay.classList.remove("show");
+    });
+
+    overlay.addEventListener("click", () => {
+      nav.classList.remove("active");
+      overlay.classList.remove("show");
+    });
+
+    // ---------- Tabs ----------
+    const tabLogin = document.querySelector("#tab-login");
+    const tabSignup = document.querySelector("#tab-signup");
+    const authTitle = document.querySelector("#auth-title");
+    const authSubtitle = document.querySelector("#auth-subtitle");
+    const nameField = document.querySelector("#name-field");
+    const submitBtn = document.querySelector("#auth-submit");
+    const msg = document.querySelector("#auth-msg");
+
+    let mode = "login"; // or "signup"
+
+    tabLogin.addEventListener("click", () => {
+      mode = "login";
+      tabLogin.classList.add("active");
+      tabSignup.classList.remove("active");
+      authTitle.textContent = "Welcome Back";
+      authSubtitle.textContent = "Sign in to continue shopping";
+      nameField.style.display = "none";
+      submitBtn.textContent = "Login";
+      msg.textContent = "";
+    });
+
+    tabSignup.addEventListener("click", () => {
+      mode = "signup";
+      tabSignup.classList.add("active");
+      tabLogin.classList.remove("active");
+      authTitle.textContent = "Create Account";
+      authSubtitle.textContent = "Join ShopNow and start shopping";
+      nameField.style.display = "block";
+      submitBtn.textContent = "Sign Up";
+      msg.textContent = "";
+    });
+
+    // ---------- Submit ----------
+    document.querySelector("#auth-form").addEventListener("submit", (e) => {
+      e.preventDefault();
+
+      const name = document.querySelector("#auth-name").value.trim();
+      const email = document.querySelector("#auth-email").value.trim();
+      const password = document.querySelector("#auth-password").value;
+
+      if (mode === "signup") {
+        if (!name) {
+          msg.textContent = "⚠️ Please enter your name.";
+          msg.style.color = "#e53935";
+          return;
+        }
+        const user = { name, email, password };
+        localStorage.setItem("shopnow_user", JSON.stringify(user));
+        msg.textContent = "✅ Account created! Logging you in...";
+        msg.style.color = "#0a7a3c";
+        setTimeout(() => {
+          window.location.href = "index.html";
+        }, 1200);
+      } else {
+        const saved = JSON.parse(localStorage.getItem("shopnow_user"));
+        if (!saved) {
+          msg.textContent = "⚠️ No account found. Please sign up first.";
+          msg.style.color = "#e53935";
+          return;
+        }
+        if (saved.email === email && saved.password === password) {
+          msg.textContent = "✅ Welcome back!";
+          msg.style.color = "#0a7a3c";
+          setTimeout(() => {
+            window.location.href = "index.html";
+          }, 1000);
+        } else {
+          msg.textContent = "⚠️ Wrong email or password.";
+          msg.style.color = "#e53935";
+        }
+      }
+    });
+  </script>
+
+</body>
+</html>
