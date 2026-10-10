@@ -5,7 +5,14 @@ const products = [
   { id: 1, name: "Classic Outfit", desc: "Comfortable and Stylish Outfit", price: 20, oldPrice: 28, badge: "New", image: "Fileone.jpg" },
   { id: 2, name: "Nice Outfit", desc: "Nice and Comfortable Outfit", price: 50, oldPrice: null, badge: "", image: "Filetwo.jpg" },
   { id: 3, name: "Cute Outfit", desc: "Cute and Stylish Outfit", price: 60, oldPrice: 80, badge: "Sale", image: "Filethree.jpg" },
-  { id: 4, name: "Bold Outfit", desc: "Nice and Stylish Outfit", price: 70, oldPrice: null, badge: "New", image: "Filefour.jpg" }
+  { id: 4, name: "Bold Outfit", desc: "Nice and Stylish Outfit", price: 70, oldPrice: null, badge: "New", image: "Filefour.jpg" },
+  { id: 5, name: "LV Monogram Loafers", desc: "Luxury monogram leather loafers with gold-tone hardware", price: 120, oldPrice: 150, badge: "Sale", image: "Filefive.jpg" },
+  { id: 6, name: "Black & White Loafers", desc: "Two-tone classic loafers with chunky sole", price: 85, oldPrice: null, badge: "New", image: "Filesix.jpg" },
+  { id: 7, name: "Fendi Patent Chunky Loafers", desc: "Glossy patent finish with bold chunky sole", price: 140, oldPrice: 180, badge: "Sale", image: "Fileseven.jpg" },
+  { id: 8, name: "Zara Tassel Loafers", desc: "Elegant tassel detail with white front panel", price: 75, oldPrice: null, badge: "New", image: "Fileeight.jpg" },
+  { id: 9, name: "Nike Air Force 1 Black", desc: "Iconic all-black Air Force 1 sneakers", price: 95, oldPrice: 130, badge: "Sale", image: "Filenine.jpg" },
+  { id: 10, name: "AF1 Black White Stripe", desc: "All-black AF1 with signature white stripe", price: 90, oldPrice: null, badge: "New", image: "Fileten.jpg" },
+  { id: 11, name: "Urban Chunky Boots", desc: "Rugged high-top boots with thick lug sole", price: 110, oldPrice: 140, badge: "Sale", image: "Fileeleven.jpg" }
 ];
 
 // ---------- Load saved data ----------
