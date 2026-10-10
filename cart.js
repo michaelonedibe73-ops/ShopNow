@@ -261,3 +261,50 @@ setTimeout(() => {
 renderProducts(products);
 renderCart();
 wishCount.textContent = wishlist.length;
+// ---------- Login state ----------
+function updateLoginUI() {
+  const user = JSON.parse(localStorage.getItem("shopnow_user"));
+  const loginLink = document.querySelector("#menu-login-link");
+  const userInfo = document.querySelector("#menu-user-info");
+  const userName = document.querySelector("#menu-user-name");
+  const logoutBtn = document.querySelector("#logout-btn");
+  const avatar = document.querySelector("#menu-avatar");
+
+  if (!loginLink) return; // safety
+
+  if (user) {
+    loginLink.style.display = "none";
+    userInfo.style.display = "block";
+    userName.textContent = "Hi, " + user.name;
+    avatar.textContent = user.name.charAt(0).toUpperCase();
+    avatar.style.background = "#1a73e8";
+    avatar.style.color = "white";
+    avatar.style.display = "flex";
+    avatar.style.alignItems = "center";
+    avatar.style.justifyContent = "center";
+    avatar.style.fontWeight = "bold";
+    avatar.style.fontSize = "20px";
+
+    logoutBtn.addEventListener("click", (e) => {
+      e.preventDefault();
+      localStorage.removeItem("shopnow_user");
+      updateLoginUI();
+      showToastMessage("👋 You have been logged out");
+    });
+  } else {
+    loginLink.style.display = "inline-block";
+    userInfo.style.display = "none";
+    avatar.textContent = "";
+    avatar.style.background = "#ccc";
+  }
+}
+
+function showToastMessage(text) {
+  const toast = document.querySelector("#toast");
+  if (!toast) return;
+  toast.textContent = text;
+  toast.classList.add("show");
+  setTimeout(() => toast.classList.remove("show"), 3000);
+}
+
+updateLoginUI();
