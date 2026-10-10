@@ -256,6 +256,80 @@ setTimeout(() => {
   setInterval(showToast, 15000);
 }, 5000);
 
+// ---------- Product Modal ----------
+let modalProduct = null;
+let modalQty = 1;
+
+const modal = document.querySelector("#product-modal");
+const modalImage = document.querySelector("#modal-image");
+const modalName = document.querySelector("#modal-name");
+const modalDesc = document.querySelector("#modal-desc");
+const modalPrice = document.querySelector("#modal-price");
+const qtyValue = document.querySelector("#qty-value");
+
+function openModal(id) {
+  const p = products.find((x) => x.id === id);
+  if (!p) return;
+
+  modalProduct = p;
+  modalQty = 1;
+  qtyValue.textContent = 1;
+
+  modalImage.src = p.image;
+  modalImage.alt = p.name;
+  modalName.textContent = p.name;
+  modalDesc.textContent = p.desc;
+
+  let priceHTML = "$" + p.price;
+  if (p.oldPrice) {
+    const save = Math.round(((p.oldPrice - p.price) / p.oldPrice) * 100);
+    priceHTML += ` <s>$${p.oldPrice}</s> <span class="save">Save ${save}%</span>`;
+  }
+  modalPrice.innerHTML = priceHTML;
+
+  modal.classList.add("show");
+  document.body.style.overflow = "hidden";
+}
+
+function closeModal() {
+  modal.classList.remove("show");
+  document.body.style.overflow = "";
+  modalProduct = null;
+}
+
+document.querySelector("#modal-close").addEventListener("click", closeModal);
+modal.addEventListener("click", (e) => {
+  if (e.target === modal) closeModal();
+});
+
+document.querySelector("#qty-minus").addEventListener("click", () => {
+  if (modalQty > 1) {
+    modalQty -= 1;
+    qtyValue.textContent = modalQty;
+  }
+});
+
+document.querySelector("#qty-plus").addEventListener("click", () => {
+  modalQty += 1;
+  qtyValue.textContent = modalQty;
+});
+
+document.querySelector("#modal-add").addEventListener("click", () => {
+  for (let i = 0; i < modalQty; i++) {
+    addToCart(modalProduct.id);
+  }
+  closeModal();
+  showToastMessage("✅ Added " + modalQty + " to cart");
+});
+
+document.querySelector("#modal-buy").addEventListener("click", () => {
+  for (let i = 0; i < modalQty; i++) {
+    addToCart(modalProduct.id);
+  }
+  closeModal();
+  document.querySelector("#cart").scrollIntoView({ behavior: "smooth" });
+});
+
 // ---------- Start ----------
 renderProducts(products);
 renderCart();
