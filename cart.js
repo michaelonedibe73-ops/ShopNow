@@ -573,9 +573,8 @@ function initCheckout() {
     const payment = document.querySelector('input[name="payment"]:checked').value;
 
     if (!name || !email || !phone || !address || !city || !state) {
-      checkoutMsg.textContent = "⚠️ Please fill all fields.";
-      checkoutMsg.style.color = "#e53935";
-      return;
+  showToastMessage("⚠️ Please fill in all fields");
+  return;
     }
 
     // Build order
