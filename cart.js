@@ -978,6 +978,57 @@ function updateModalRating(productId) {
   }
 }
 
+// ---------- Star Picker + Submit Review ----------
+const starPicker = document.querySelector("#star-picker");
+if (starPicker) {
+  starPicker.querySelectorAll("span").forEach((star) => {
+    star.addEventListener("click", () => {
+      currentRating = Number(star.dataset.star);
+      starPicker.querySelectorAll("span").forEach((s) => {
+        s.classList.toggle("active", Number(s.dataset.star) <= currentRating);
+      });
+    });
+  });
+}
+
+const submitReviewBtn = document.querySelector("#submit-review");
+if (submitReviewBtn) {
+  submitReviewBtn.addEventListener("click", () => {
+    if (!modalProduct) return;
+    if (currentRating === 0) {
+      showToastMessage("⭐ Please pick a rating");
+      return;
+    }
+    const text = document.querySelector("#review-text").value.trim();
+    if (!text) {
+      showToastMessage("✏️ Please write a review");
+      return;
+    }
+
+    const user = JSON.parse(localStorage.getItem("shopnow_user"));
+    const id = modalProduct.id;
+
+    if (!reviews[id]) reviews[id] = [];
+    reviews[id].push({
+      author: user ? user.name : "Anonymous",
+      rating: currentRating,
+      text: text,
+      date: new Date().toLocaleDateString("en-NG", { year: "numeric", month: "short", day: "numeric" })
+    });
+
+    saveReviews();
+    renderReviews(id);
+    updateModalRating(id);
+
+    // Reset form
+    currentRating = 0;
+    starPicker.querySelectorAll("span").forEach((s) => s.classList.remove("active"));
+    document.querySelector("#review-text").value = "";
+
+    showToastMessage("✅ Review submitted!");
+  });
+}
+
 initCheckout();
 
 // ---------- Start ----------
