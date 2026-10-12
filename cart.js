@@ -190,7 +190,22 @@ function renderCart() {
   let itemCount = 0;
 
   if (cart.length === 0) {
-    cartItems.innerHTML = "<li>Your cart is empty.</li>";
+  cartItems.innerHTML = `
+    <li class="empty-cart">
+      <div style="font-size: 40px; margin-bottom: 8px;">🛒</div>
+      <p style="font-weight: bold; margin-bottom: 6px;">Your cart is empty</p>
+      <p style="color: #777; font-size: 14px; margin-bottom: 14px;">Add something to get started!</p>
+      <button id="empty-shop-btn" class="empty-shop-btn">Shop Now</button>
+    </li>
+  `;
+
+  const shopBtn = document.querySelector("#empty-shop-btn");
+  if (shopBtn) {
+    shopBtn.addEventListener("click", () => {
+      const shop = document.querySelector("#shop");
+      if (shop) shop.scrollIntoView({ behavior: "smooth" });
+    });
+  }
   }
 
   cart.forEach((item, index) => {
