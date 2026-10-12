@@ -748,6 +748,35 @@ document.querySelectorAll(".cat-link").forEach((el) => {
   });
 });
 
+// ---------- Theme toggle ----------
+function initTheme() {
+  const toggle = document.querySelector("#theme-toggle");
+  if (!toggle) return;
+
+  const saved = localStorage.getItem("shopnow_theme") || "light";
+  if (saved === "dark") {
+    document.body.classList.add("dark");
+    toggle.textContent = "☀️";
+  }
+
+  toggle.addEventListener("click", () => {
+    document.body.classList.toggle("dark");
+    const isDark = document.body.classList.contains("dark");
+    toggle.textContent = isDark ? "☀️" : "🌙";
+    localStorage.setItem("shopnow_theme", isDark ? "dark" : "light");
+  });
+}
+
+initTheme();
+
+// Apply theme on every page load (before toggle exists)
+(function applyTheme() {
+  const saved = localStorage.getItem("shopnow_theme");
+  if (saved === "dark") {
+    document.body.classList.add("dark");
+  }
+})();
+
 initCheckout();
 
 // ---------- Start ----------
