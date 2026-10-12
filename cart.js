@@ -250,16 +250,28 @@ function handleProductClick(e) {
   }
 
   if (wishBtn) {
-    const id = Number(wishBtn.dataset.id);
-    if (wishlist.includes(id)) {
-      wishlist = wishlist.filter((x) => x !== id);
-    } else {
-      wishlist.push(id);
-    }
-    wishBtn.classList.toggle("liked");
-    wishBtn.textContent = wishlist.includes(id) ? "♥" : "♡";
-    if (wishCount) wishCount.textContent = wishlist.length;
-    saveWishlist();
+  const id = Number(wishBtn.dataset.id);
+  const p = products.find((x) => x.id === id);
+  let added;
+
+  if (wishlist.includes(id)) {
+    wishlist = wishlist.filter((x) => x !== id);
+    added = false;
+  } else {
+    wishlist.push(id);
+    added = true;
+  }
+
+  wishBtn.classList.toggle("liked");
+  wishBtn.textContent = wishlist.includes(id) ? "♥" : "♡";
+  if (wishCount) wishCount.textContent = wishlist.length;
+  saveWishlist();
+
+  if (added) {
+    showToastMessage("❤️ Added " + p.name + " to wishlist");
+  } else {
+    showToastMessage("💔 Removed " + p.name + " from wishlist");
+  }
   }
 }
 
