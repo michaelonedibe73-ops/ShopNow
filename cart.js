@@ -420,6 +420,8 @@ function openModal(id) {
   }
   modalPrice.innerHTML = priceHTML;
 
+  trackRecentlyViewed(id);
+
   modal.classList.add("show");
   document.body.style.overflow = "hidden";
 }
