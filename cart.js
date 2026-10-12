@@ -861,6 +861,49 @@ function initSearchSuggestions() {
 
 initSearchSuggestions();
 
+// ---------- Recently Viewed ----------
+let recentlyViewed = JSON.parse(localStorage.getItem("shopnow_recent")) || [];
+
+function saveRecentlyViewed() {
+  localStorage.setItem("shopnow_recent", JSON.stringify(recentlyViewed));
+}
+
+function trackRecentlyViewed(id) {
+  recentlyViewed = recentlyViewed.filter((x) => x !== id);
+  recentlyViewed.unshift(id);
+  recentlyViewed = recentlyViewed.slice(0, 6);
+  saveRecentlyViewed();
+  renderRecentlyViewed();
+}
+
+function renderRecentlyViewed() {
+  const section = document.querySelector("#recently-viewed");
+  const list = document.querySelector("#recently-viewed-list");
+  if (!section || !list) return;
+
+  const items = recentlyViewed
+    .map((id) => products.find((p) => p.id === id))
+    .filter(Boolean);
+
+  if (items.length === 0) {
+    section.style.display = "none";
+    return;
+  }
+
+  section.style.display = "block";
+  list.innerHTML = "";
+
+  items.forEach((p) => {
+    list.innerHTML += buildCardHTML(p);
+  });
+}
+
+// Attach click handler for recently viewed
+const rvList = document.querySelector("#recently-viewed-list");
+if (rvList) rvList.addEventListener("click", handleProductClick);
+
+renderRecentlyViewed();
+
 initCheckout();
 
 // ---------- Start ----------
