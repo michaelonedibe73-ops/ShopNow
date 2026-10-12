@@ -12,7 +12,19 @@ const products = [
   { id: 8, name: "Zara Tassel Loafers", desc: "Elegant tassel detail with white front panel", price: 75, oldPrice: null, badge: "New", image: "Fileeight.jpg", category: "shoes" },
   { id: 9, name: "Nike Air Force 1 Black", desc: "Iconic all-black Air Force 1 sneakers", price: 95, oldPrice: 130, badge: "Sale", image: "Filenine.jpg", category: "shoes" },
   { id: 10, name: "AF1 Black White Stripe", desc: "All-black AF1 with signature white stripe", price: 90, oldPrice: null, badge: "New", image: "Fileten.jpg", category: "shoes" },
-  { id: 11, name: "Urban Chunky Boots", desc: "Rugged high-top boots with thick lug sole", price: 110, oldPrice: 140, badge: "Sale", image: "Fileeleven.jpg", category: "shoes" }
+  { id: 11, name: "Urban Chunky Boots", desc: "Rugged high-top boots with thick lug sole", price: 110, oldPrice: 140, badge: "Sale", image: "Fileeleven.jpg", category: "shoes" },
+  { id: 12, name: "Grey Zip-Up Hoodie Set", desc: "Comfortable grey hoodie and matching sweatpants", price: 85, oldPrice: 110, badge: "Sale", image: "cloth1.jpg", category: "clothing" },
+{ id: 13, name: "Black Zip-Up Hoodie Set", desc: "Classic all-black hoodie and sweatpants combo", price: 85, oldPrice: null, badge: "New", image: "cloth2.jpg", category: "clothing" },
+{ id: 14, name: "Grey & Black Sweatshirt Set", desc: "Modern colorblock sweatshirt with matching pants", price: 75, oldPrice: 95, badge: "Sale", image: "cloth3.jpg", category: "clothing" },
+{ id: 15, name: "Black Graphic Hoodie Set", desc: "Bold graphic print hoodie with black joggers", price: 70, oldPrice: null, badge: "New", image: "cloth4.jpg", category: "clothing" },
+{ id: 16, name: "Black Dragon Hoodie Set", desc: "Embroidered dragon hoodie with matching pants", price: 95, oldPrice: 120, badge: "Sale", image: "cloth5.jpg", category: "clothing" },
+{ id: 17, name: "White Dragon Button-Up Set", desc: "Short-sleeve patterned shirt with matching shorts", price: 65, oldPrice: null, badge: "New", image: "cloth6.jpg", category: "clothing" },
+{ id: 18, name: "White & Red Tracksuit Set", desc: "Sporty tracksuit with vest, pants, and sneakers", price: 110, oldPrice: 140, badge: "Sale", image: "cloth7.jpg", category: "clothing" },
+{ id: 19, name: "Floral Gradient Sweater", desc: "Cozy knit sweater with floral gradient design", price: 55, oldPrice: null, badge: "New", image: "cloth8.jpg", category: "clothing" },
+{ id: 20, name: "CAN'T Graphic Tee & Jeans", desc: "Oversized graphic tee with light wash jeans", price: 60, oldPrice: 75, badge: "Sale", image: "cloth9.jpg", category: "clothing" },
+{ id: 21, name: "BOSTON Graphic Tee & Jeans", desc: "Beige graphic tee with dark wash wide-leg jeans", price: 60, oldPrice: null, badge: "New", image: "cloth10.jpg", category: "clothing" },
+{ id: 22, name: "Navy & Grey Graphic Set", desc: "V-neck patterned tee with black track pants", price: 50, oldPrice: 65, badge: "Sale", image: "cloth11.jpg", category: "clothing" },
+{ id: 23, name: "Black Button-Up Set", desc: "Short-sleeve button-up with matching trousers", price: 80, oldPrice: null, badge: "New", image: "cloth12.jpg", category: "clothing" }
   // 👇 Add new clothes below with category: "clothing"
 ];
 
