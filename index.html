@@ -27,10 +27,11 @@
       </div>
     </div>
 
-    <form class="search" id="search-form">
-  <input type="text" id="search-input" placeholder="Search products, categories & pages">
+    <form class="search" id="search-form" style="position: relative;">
+  <input type="text" id="search-input" placeholder="Search products, categories & pages" autocomplete="off">
   <button type="submit">🔍</button>
-</form>
+  <div id="search-suggestions" class="search-suggestions"></div>
+    </form>
 <button id="reset-search" class="reset-search" style="display: none;">✕ Show All</button>
 
     <div class="deliver">📍 Deliver to <strong>Choose location</strong></div>
