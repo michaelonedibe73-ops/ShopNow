@@ -513,6 +513,102 @@ function updateLoginUI() {
   }
 }
 
+// ---------- Checkout page ----------
+function initCheckout() {
+  const checkoutItems = document.querySelector("#checkout-items");
+  if (!checkoutItems) return; // not on checkout page
+
+  const checkoutTotal = document.querySelector("#checkout-total");
+  const checkoutForm = document.querySelector("#checkout-form");
+  const checkoutSection = document.querySelector("#checkout-section");
+  const confirmationSection = document.querySelector("#confirmation-section");
+  const orderNumberEl = document.querySelector("#order-number");
+  const checkoutMsg = document.querySelector("#checkout-msg");
+
+  // If cart is empty, show a friendly message
+  if (cart.length === 0) {
+    checkoutItems.innerHTML = "";
+    checkoutTotal.textContent = "";
+    checkoutSection.innerHTML = `
+      <div class="card checkout-empty">
+        <div style="font-size: 48px; margin-bottom: 12px;">🛒</div>
+        <h3>Your cart is empty</h3>
+        <p style="margin: 10px 0 18px;">Add something before checking out.</p>
+        <a href="index.html" class="empty-shop-btn" style="text-decoration: none; display: inline-block; padding: 12px 24px;">Shop Now</a>
+      </div>
+    `;
+    return;
+  }
+
+  // Render order summary
+  let total = 0;
+  cart.forEach((item) => {
+    const lineTotal = item.price * item.qty;
+    total += lineTotal;
+    const li = document.createElement("li");
+    li.innerHTML = `<span>${item.name} × ${item.qty}</span><span>$${lineTotal}</span>`;
+    checkoutItems.appendChild(li);
+  });
+  checkoutTotal.textContent = "Total: $" + total;
+
+  // Prefill name/email if logged in
+  const user = JSON.parse(localStorage.getItem("shopnow_user"));
+  if (user) {
+    const nameInput = document.querySelector("#co-name");
+    const emailInput = document.querySelector("#co-email");
+    if (nameInput) nameInput.value = user.name || "";
+    if (emailInput) emailInput.value = user.email || "";
+  }
+
+  // Handle submit
+  checkoutForm.addEventListener("submit", (e) => {
+    e.preventDefault();
+
+    const name = document.querySelector("#co-name").value.trim();
+    const email = document.querySelector("#co-email").value.trim();
+    const phone = document.querySelector("#co-phone").value.trim();
+    const address = document.querySelector("#co-address").value.trim();
+    const city = document.querySelector("#co-city").value.trim();
+    const state = document.querySelector("#co-state").value.trim();
+    const payment = document.querySelector('input[name="payment"]:checked').value;
+
+    if (!name || !email || !phone || !address || !city || !state) {
+      checkoutMsg.textContent = "⚠️ Please fill all fields.";
+      checkoutMsg.style.color = "#e53935";
+      return;
+    }
+
+    // Build order
+    const orderNumber = "SN-" + Date.now().toString().slice(-8);
+    const order = {
+      orderNumber,
+      date: new Date().toISOString(),
+      customer: { name, email, phone, address, city, state },
+      payment,
+      items: cart.slice(),
+      total
+    };
+
+    // Save to order history
+    const orders = JSON.parse(localStorage.getItem("shopnow_orders")) || [];
+    orders.push(order);
+    localStorage.setItem("shopnow_orders", JSON.stringify(orders));
+
+    // Clear cart
+    cart = [];
+    saveCart();
+    renderCart();
+
+    // Show confirmation
+    orderNumberEl.textContent = orderNumber;
+    checkoutSection.style.display = "none";
+    confirmationSection.style.display = "block";
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  });
+}
+
+initCheckout();
+
 // ---------- Start ----------
 renderProducts(products.filter((p) => p.category === "shoes"));
 renderClothingSlider();
