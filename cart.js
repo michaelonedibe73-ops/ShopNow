@@ -607,6 +607,94 @@ function initCheckout() {
   });
 }
 
+// ---------- Order History page ----------
+function initOrdersPage() {
+  const ordersList = document.querySelector("#orders-list");
+  if (!ordersList) return; // not on orders page
+
+  const orders = JSON.parse(localStorage.getItem("shopnow_orders")) || [];
+
+  if (orders.length === 0) {
+    ordersList.innerHTML = `
+      <div class="card orders-empty">
+        <div style="font-size: 48px; margin-bottom: 12px;">📦</div>
+        <h3>No orders yet</h3>
+        <p>When you place your first order, it'll show up here.</p>
+        <a href="index.html" class="empty-shop-btn" style="text-decoration: none; display: inline-block; padding: 12px 24px;">
+          Start Shopping
+        </a>
+      </div>
+    `;
+    return;
+  }
+
+  // Sort newest first
+  orders.sort((a, b) => new Date(b.date) - new Date(a.date));
+
+  ordersList.innerHTML = "";
+
+  orders.forEach((order) => {
+    const date = new Date(order.date);
+    const formattedDate = date.toLocaleDateString("en-NG", {
+      year: "numeric",
+      month: "short",
+      day: "numeric",
+      hour: "2-digit",
+      minute: "2-digit"
+    });
+
+    let itemsHTML = "";
+    order.items.forEach((item) => {
+      itemsHTML += `
+        <div class="order-item-row">
+          <span>${item.name} × ${item.qty}</span>
+          <span>$${item.price * item.qty}</span>
+        </div>
+      `;
+    });
+
+    const card = document.createElement("div");
+    card.className = "order-card";
+    card.innerHTML = `
+      <div class="order-header">
+        <div>
+          <div class="order-number">${order.orderNumber}</div>
+          <div class="order-date">${formattedDate}</div>
+        </div>
+        <span class="order-status">✓ Delivered</span>
+      </div>
+      <div class="order-summary">
+        <span>${order.items.length} item${order.items.length > 1 ? "s" : ""}</span>
+        <span class="order-total">$${order.total}</span>
+      </div>
+      <div class="order-details">
+        ${itemsHTML}
+        <div class="order-meta">
+          <strong>Deliver to:</strong> ${order.customer.name}<br>
+          ${order.customer.address}, ${order.customer.city}, ${order.customer.state}<br>
+          <strong>Phone:</strong> ${order.customer.phone}<br>
+          <strong>Payment:</strong> ${order.payment}
+        </div>
+      </div>
+      <div class="expand-hint">Tap to see details</div>
+    `;
+
+    card.addEventListener("click", () => {
+      card.classList.toggle("expanded");
+      const hint = card.querySelector(".expand-hint");
+      if (card.classList.contains("expanded")) {
+        hint.textContent = "Tap to hide details";
+      } else {
+        hint.textContent = "Tap to see details";
+      }
+    });
+
+    ordersList.appendChild(card);
+  });
+}
+
+initOrdersPage();
+
 initCheckout();
 
 // ---------- Start ----------
