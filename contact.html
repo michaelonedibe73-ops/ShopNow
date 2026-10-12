@@ -110,6 +110,21 @@
       overlay.classList.remove("show");
     });
 
+    // ---------- Theme toggle ----------
+const savedTheme = localStorage.getItem("shopnow_theme");
+if (savedTheme === "dark") document.body.classList.add("dark");
+
+const themeToggle = document.querySelector("#theme-toggle");
+if (themeToggle) {
+  if (document.body.classList.contains("dark")) themeToggle.textContent = "☀️";
+  themeToggle.addEventListener("click", () => {
+    document.body.classList.toggle("dark");
+    const isDark = document.body.classList.contains("dark");
+    themeToggle.textContent = isDark ? "☀️" : "🌙";
+    localStorage.setItem("shopnow_theme", isDark ? "dark" : "light");
+  });
+}
+    
     document.querySelector("#contact-form").addEventListener("submit", (e) => {
       e.preventDefault();
       document.querySelector("#contact-msg").textContent = "✅ Message sent! We'll reply soon.";
