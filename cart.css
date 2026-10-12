@@ -1055,3 +1055,18 @@ footer {
   margin-top: 12px;
   font-weight: bold;
 }
+/* ---------- Category pills ---------- */
+.category {
+  cursor: pointer;
+  transition: all 0.2s ease;
+  user-select: none;
+}
+
+.category:hover {
+  background: #e8f0fe;
+}
+
+.category.active {
+  background: #1a73e8;
+  color: white;
+}
