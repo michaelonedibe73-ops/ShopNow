@@ -822,3 +822,28 @@ footer {
   text-align: center;
   background: white !important;
 }
+/* ---------- Empty cart ---------- */
+.empty-cart {
+  display: flex !important;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 30px 20px !important;
+  border-bottom: none !important;
+}
+
+.empty-shop-btn {
+  padding: 12px 24px;
+  background: #1a73e8;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.empty-shop-btn:hover {
+  background: #1558b8;
+}
