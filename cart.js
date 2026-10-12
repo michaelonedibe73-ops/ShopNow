@@ -421,6 +421,12 @@ function openModal(id) {
   modalPrice.innerHTML = priceHTML;
 
   trackRecentlyViewed(id);
+  renderReviews(p.id);
+updateModalRating(p.id);
+currentRating = 0;
+document.querySelectorAll("#star-picker span").forEach((s) => s.classList.remove("active"));
+const reviewText = document.querySelector("#review-text");
+if (reviewText) reviewText.value = "";
 
   modal.classList.add("show");
   document.body.style.overflow = "hidden";
