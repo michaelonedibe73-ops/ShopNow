@@ -218,7 +218,10 @@ function handleProductClick(e) {
   const viewBtn = e.target.closest(".view-btn");
 
   if (addBtn) {
-    addToCart(Number(addBtn.dataset.id));
+  const id = Number(addBtn.dataset.id);
+  addToCart(id);
+  const p = products.find((x) => x.id === id);
+  showToastMessage("✅ Added " + p.name + " to cart");
   }
 
   if (buyBtn) {
