@@ -695,6 +695,59 @@ function initOrdersPage() {
 
 initOrdersPage();
 
+// ---------- Category Filter ----------
+function filterByCategory(cat) {
+  const shopSection = document.querySelector("#shop");
+
+  // Update active state on pills
+  document.querySelectorAll(".category").forEach((el) => {
+    el.classList.toggle("active", el.dataset.cat === cat);
+  });
+
+  // Update "Today's Deals" heading based on filter
+  const heading = document.querySelector("#shop h2");
+  if (heading) {
+    const titles = {
+      all: "All Products",
+      clothing: "Clothing",
+      shoes: "Shoes",
+      deals: "Today's Deals"
+    };
+    heading.textContent = titles[cat] || "Today's Deals";
+  }
+
+  // Filter products
+  let filtered;
+  if (cat === "all") {
+    filtered = products;
+  } else if (cat === "deals") {
+    filtered = products.filter((p) => p.oldPrice);
+  } else {
+    filtered = products.filter((p) => p.category === cat);
+  }
+
+  renderProducts(filtered);
+
+  // Close menu if open
+  if (nav) nav.classList.remove("active");
+  if (overlay) overlay.classList.remove("show");
+
+  // Scroll to shop
+  if (shopSection) shopSection.scrollIntoView({ behavior: "smooth" });
+}
+
+// Attach click handlers
+document.querySelectorAll(".category").forEach((el) => {
+  el.addEventListener("click", () => filterByCategory(el.dataset.cat));
+});
+
+document.querySelectorAll(".cat-link").forEach((el) => {
+  el.addEventListener("click", (e) => {
+    e.preventDefault();
+    filterByCategory(el.dataset.cat);
+  });
+});
+
 initCheckout();
 
 // ---------- Start ----------
