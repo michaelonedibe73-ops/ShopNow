@@ -1245,3 +1245,12 @@ body.dark .order-meta strong {
 body.dark .empty-cart p {
   color: #aaa;
 }
+/* ---------- Scroll offset (fix sticky header covering content) ---------- */
+#shop,
+#clothing-slider,
+#outfits,
+#cart,
+#categories,
+#top {
+  scroll-margin-top: 100px;
+}
