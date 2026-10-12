@@ -1352,3 +1352,152 @@ body.dark .suggestion-item.active {
 body.dark .suggestion-name {
   color: #e8ebed;
 }
+/* ---------- Reviews ---------- */
+.reviews-section {
+  margin-top: 22px;
+  padding-top: 18px;
+  border-top: 2px solid #eee;
+}
+
+.reviews-section h3 {
+  font-size: 18px;
+  margin-bottom: 12px;
+}
+
+.reviews-list {
+  margin-bottom: 18px;
+}
+
+.review-item {
+  padding: 12px 0;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.review-item:last-child {
+  border-bottom: none;
+}
+
+.review-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 4px;
+}
+
+.review-author {
+  font-weight: bold;
+  font-size: 14px;
+}
+
+.review-stars {
+  color: #ffc107;
+  font-size: 14px;
+}
+
+.review-text {
+  font-size: 14px;
+  color: #555;
+  line-height: 1.5;
+}
+
+.review-date {
+  font-size: 12px;
+  color: #999;
+  margin-top: 4px;
+}
+
+.no-reviews {
+  padding: 16px;
+  text-align: center;
+  color: #999;
+  font-size: 14px;
+  background: #f8f9fa;
+  border-radius: 8px;
+}
+
+.review-form-wrap {
+  background: #f8f9fa;
+  border-radius: 10px;
+  padding: 16px;
+}
+
+.review-form-wrap h4 {
+  font-size: 15px;
+  margin-bottom: 10px;
+}
+
+.star-picker {
+  display: flex;
+  gap: 4px;
+  margin-bottom: 10px;
+  font-size: 28px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.star-picker span {
+  color: #ccc;
+  transition: color 0.15s;
+}
+
+.star-picker span.active {
+  color: #ffc107;
+}
+
+#review-text {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 14px;
+  font-family: inherit;
+  resize: vertical;
+  margin-bottom: 10px;
+}
+
+#review-text:focus {
+  outline: none;
+  border-color: #1a73e8;
+}
+
+.submit-review-btn {
+  padding: 12px 24px;
+  background: #1a73e8;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+  width: 100%;
+}
+
+.submit-review-btn:hover {
+  background: #1558b8;
+}
+
+body.dark .reviews-section {
+  border-top-color: #2a3139;
+}
+
+body.dark .review-item {
+  border-bottom-color: #2a3139;
+}
+
+body.dark .review-text {
+  color: #aaa;
+}
+
+body.dark .review-form-wrap {
+  background: #2a3139;
+}
+
+body.dark .no-reviews {
+  background: #2a3139;
+}
+
+body.dark #review-text {
+  background: #1a2029;
+  color: #e8ebed;
+  border-color: #3a4149;
+}
