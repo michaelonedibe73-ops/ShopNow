@@ -787,6 +787,80 @@ initTheme();
   }
 })();
 
+// ---------- Search Suggestions ----------
+function initSearchSuggestions() {
+  const input = document.querySelector("#search-input");
+  const box = document.querySelector("#search-suggestions");
+  if (!input || !box) return;
+
+  function renderSuggestions(term) {
+    box.innerHTML = "";
+
+    if (!term || term.length < 1) {
+      box.classList.remove("show");
+      return;
+    }
+
+    const matches = products
+      .filter((p) => (p.name + " " + p.desc).toLowerCase().includes(term))
+      .slice(0, 6);
+
+    if (matches.length === 0) {
+      box.innerHTML = '<div class="no-suggestions">No matches found</div>';
+      box.classList.add("show");
+      return;
+    }
+
+    matches.forEach((p) => {
+      const item = document.createElement("div");
+      item.className = "suggestion-item";
+      item.innerHTML = `
+        <img src="${p.image}" alt="${p.name}">
+        <div class="suggestion-info">
+          <div class="suggestion-name">${p.name}</div>
+          <div class="suggestion-meta">${p.category}</div>
+        </div>
+        <div class="suggestion-price">$${p.price}</div>
+      `;
+      item.addEventListener("click", () => {
+        input.value = p.name;
+        box.classList.remove("show");
+        renderProducts([p]);
+        if (resetSearchBtn) resetSearchBtn.style.display = "block";
+        const shop = document.querySelector("#shop");
+        if (shop) shop.scrollIntoView({ behavior: "smooth" });
+      });
+      box.appendChild(item);
+    });
+
+    box.classList.add("show");
+  }
+
+  input.addEventListener("input", (e) => {
+    renderSuggestions(e.target.value.toLowerCase().trim());
+  });
+
+  input.addEventListener("focus", (e) => {
+    if (e.target.value.trim()) {
+      renderSuggestions(e.target.value.toLowerCase().trim());
+    }
+  });
+
+  // Close on outside click
+  document.addEventListener("click", (e) => {
+    if (!e.target.closest("#search-form")) {
+      box.classList.remove("show");
+    }
+  });
+
+  // Close on Escape
+  input.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") box.classList.remove("show");
+  });
+}
+
+initSearchSuggestions();
+
 initCheckout();
 
 // ---------- Start ----------
