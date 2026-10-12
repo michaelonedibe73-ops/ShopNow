@@ -906,6 +906,72 @@ if (rvList) rvList.addEventListener("click", handleProductClick);
 
 renderRecentlyViewed();
 
+// ---------- Reviews ----------
+let reviews = JSON.parse(localStorage.getItem("shopnow_reviews")) || {};
+let currentRating = 0;
+
+function saveReviews() {
+  localStorage.setItem("shopnow_reviews", JSON.stringify(reviews));
+}
+
+function getProductReviews(id) {
+  return reviews[id] || [];
+}
+
+function getAverageRating(id) {
+  const list = getProductReviews(id);
+  if (list.length === 0) return { avg: 0, count: 0 };
+  const sum = list.reduce((t, r) => t + r.rating, 0);
+  return { avg: (sum / list.length).toFixed(1), count: list.length };
+}
+
+function starsHTML(rating) {
+  let out = "";
+  for (let i = 1; i <= 5; i++) {
+    out += i <= Math.round(rating) ? "★" : "☆";
+  }
+  return out;
+}
+
+function renderReviews(productId) {
+  const listEl = document.querySelector("#reviews-list");
+  if (!listEl) return;
+  const list = getProductReviews(productId);
+
+  if (list.length === 0) {
+    listEl.innerHTML = '<div class="no-reviews">No reviews yet. Be the first!</div>';
+    return;
+  }
+
+  listEl.innerHTML = "";
+  list.slice().reverse().forEach((r) => {
+    const item = document.createElement("div");
+    item.className = "review-item";
+    item.innerHTML = `
+      <div class="review-header">
+        <span class="review-author">${r.author || "Anonymous"}</span>
+        <span class="review-stars">${starsHTML(r.rating)}</span>
+      </div>
+      <div class="review-text">${r.text}</div>
+      <div class="review-date">${r.date}</div>
+    `;
+    listEl.appendChild(item);
+  });
+}
+
+function updateModalRating(productId) {
+  const el = document.querySelector("#modal-rating");
+  if (!el) return;
+  const { avg, count } = getAverageRating(productId);
+  if (count === 0) {
+    el.textContent = "No reviews yet";
+    el.style.color = "#777";
+  } else {
+    el.textContent = starsHTML(avg) + " " + avg + " (" + count + " review" + (count > 1 ? "s" : "") + ")";
+    el.style.color = "#ffc107";
+  }
+}
+
 initCheckout();
 
 // ---------- Start ----------
