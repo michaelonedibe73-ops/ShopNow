@@ -1070,3 +1070,178 @@ footer {
   background: #1a73e8;
   color: white;
 }
+/* ---------- Theme toggle ---------- */
+.theme-toggle {
+  background: transparent;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+  padding: 6px;
+  border-radius: 50%;
+  transition: background 0.2s;
+}
+
+.theme-toggle:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+/* ---------- Dark mode ---------- */
+body.dark {
+  background: #0f1419;
+  color: #e8ebed;
+}
+
+body.dark header {
+  background: #000;
+}
+
+body.dark .card,
+body.dark .order-card,
+body.dark .orders-empty {
+  background: #1a2029;
+  color: #e8ebed;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+}
+
+body.dark .logo-box {
+  background: #1a73e8;
+  color: white;
+}
+
+body.dark nav {
+  background: #1a2029;
+  color: #e8ebed;
+}
+
+body.dark nav li a {
+  color: #e8ebed;
+  border-bottom: 1px solid #2a3139;
+}
+
+body.dark .menu-user strong {
+  color: #e8ebed;
+}
+
+body.dark .category {
+  background: #2a3139;
+  color: #8ab4f8;
+}
+
+body.dark .category:hover {
+  background: #353d47;
+}
+
+body.dark .category.active {
+  background: #1a73e8;
+  color: white;
+}
+
+body.dark .product-card {
+  background: #1a2029;
+  color: #e8ebed;
+}
+
+body.dark .img-wrap {
+  background: #2a3139;
+}
+
+body.dark .icon-btn {
+  background: #2a3139;
+  border-color: #3a4149;
+  color: #e8ebed;
+}
+
+body.dark .arrows button {
+  background: #2a3139;
+  border-color: #3a4149;
+  color: #e8ebed;
+}
+
+body.dark .add-btn {
+  color: #8ab4f8;
+}
+
+body.dark #cart-items li {
+  border-bottom: 1px solid #2a3139;
+}
+
+body.dark #clear-cart {
+  background: #2a3139;
+  border-color: #3a4149;
+  color: #e8ebed;
+}
+
+body.dark .search input {
+  background: #1a2029;
+  color: #e8ebed;
+}
+
+body.dark .deliver {
+  color: #e8ebed;
+}
+
+body.dark .hero-card {
+  background: rgba(20, 25, 30, 0.9);
+  color: #e8ebed;
+}
+
+body.dark .teal-link {
+  color: #8ab4f8;
+}
+
+body.dark .modal-box {
+  background: #1a2029;
+  color: #e8ebed;
+}
+
+body.dark .modal-content h2 {
+  color: #e8ebed;
+}
+
+body.dark #modal-desc {
+  color: #aaa !important;
+}
+
+body.dark .qty-btn {
+  background: #2a3139;
+  border-color: #3a4149;
+  color: #e8ebed;
+}
+
+body.dark .modal-add {
+  background: #1a2029 !important;
+  color: #8ab4f8 !important;
+  border-color: #8ab4f8 !important;
+}
+
+body.dark .checkout-form input,
+body.dark .auth-form input {
+  background: #2a3139;
+  color: #e8ebed;
+  border-color: #3a4149;
+}
+
+body.dark .pay-option {
+  border-color: #3a4149;
+  color: #e8ebed;
+}
+
+body.dark .pay-option:hover {
+  background: #2a3139;
+}
+
+body.dark .order-item-row {
+  border-bottom-color: #2a3139;
+}
+
+body.dark .order-header .order-number {
+  color: #e8ebed;
+}
+
+body.dark .order-meta strong {
+  color: #e8ebed;
+}
+
+body.dark .empty-cart p {
+  color: #aaa;
+}
