@@ -72,13 +72,13 @@
 
     <section class="card">
       <h3>Send us a message</h3>
-      <form id="contact-form" style="display: flex; flex-direction: column; gap: 12px; margin-top: 14px;">
-        <input type="text" placeholder="Your Name" required style="padding: 12px; border: 1px solid #ddd; border-radius: 6px; font-size: 15px;">
-        <input type="email" placeholder="Your Email" required style="padding: 12px; border: 1px solid #ddd; border-radius: 6px; font-size: 15px;">
-        <textarea placeholder="Your Message" rows="5" required style="padding: 12px; border: 1px solid #ddd; border-radius: 6px; font-size: 15px; font-family: inherit;"></textarea>
-        <button type="submit" style="padding: 14px; background: #1a73e8; color: white; border: none; border-radius: 6px; font-size: 16px; font-weight: bold; cursor: pointer;">Send Message</button>
-      </form>
-      <p id="contact-msg" style="margin-top: 12px; color: #0a7a3c; font-weight: bold;"></p>
+      <form id="contact-form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST" style="display: flex; flex-direction: column; gap: 12px; margin-top: 14px;">
+  <input type="text" name="name" placeholder="Your Name" required style="padding: 12px; border: 1px solid #ddd; border-radius: 6px; font-size: 15px;">
+  <input type="email" name="email" placeholder="Your Email" required style="padding: 12px; border: 1px solid #ddd; border-radius: 6px; font-size: 15px;">
+  <textarea name="message" placeholder="Your Message" rows="5" required style="padding: 12px; border: 1px solid #ddd; border-radius: 6px; font-size: 15px; font-family: inherit;"></textarea>
+  <button type="submit" style="padding: 14px; background: #1a73e8; color: white; border: none; border-radius: 6px; font-size: 16px; font-weight: bold; cursor: pointer;">Send Message</button>
+</form>
+<p id="contact-msg" style="margin-top: 12px; color: #0a7a3c; font-weight: bold;"></p>
     </section>
   </main>
 
