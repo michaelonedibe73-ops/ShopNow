@@ -523,7 +523,6 @@ function initCheckout() {
   const checkoutSection = document.querySelector("#checkout-section");
   const confirmationSection = document.querySelector("#confirmation-section");
   const orderNumberEl = document.querySelector("#order-number");
-  const checkoutMsg = document.querySelector("#checkout-msg");
 
   // If cart is empty, show a friendly message
   if (cart.length === 0) {
