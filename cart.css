@@ -1255,3 +1255,100 @@ body.dark .empty-cart p {
 #top {
   scroll-margin-top: 100px;
 }
+/* ---------- Search suggestions ---------- */
+.search-suggestions {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background: white;
+  border-radius: 0 0 8px 8px;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.12);
+  max-height: 320px;
+  overflow-y: auto;
+  z-index: 200;
+}
+
+.search-suggestions.show {
+  display: block;
+}
+
+.suggestion-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+  cursor: pointer;
+  border-bottom: 1px solid #f0f0f0;
+  transition: background 0.15s;
+}
+
+.suggestion-item:last-child {
+  border-bottom: none;
+}
+
+.suggestion-item:hover,
+.suggestion-item.active {
+  background: #f1f3f4;
+}
+
+.suggestion-item img {
+  width: 40px;
+  height: 40px;
+  border-radius: 6px;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.suggestion-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.suggestion-name {
+  font-size: 14px;
+  font-weight: bold;
+  color: #131a22;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.suggestion-meta {
+  font-size: 12px;
+  color: #777;
+  margin-top: 2px;
+}
+
+.suggestion-price {
+  font-weight: bold;
+  color: #0a7a3c;
+  font-size: 14px;
+  white-space: nowrap;
+}
+
+.no-suggestions {
+  padding: 16px;
+  text-align: center;
+  color: #999;
+  font-size: 14px;
+}
+
+body.dark .search-suggestions {
+  background: #1a2029;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.5);
+}
+
+body.dark .suggestion-item {
+  border-bottom-color: #2a3139;
+}
+
+body.dark .suggestion-item:hover,
+body.dark .suggestion-item.active {
+  background: #2a3139;
+}
+
+body.dark .suggestion-name {
+  color: #e8ebed;
+}
