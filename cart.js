@@ -612,6 +612,31 @@ function initCheckout() {
     orders.push(order);
     localStorage.setItem("shopnow_orders", JSON.stringify(orders));
 
+    // Send order to Formspree (email to owner)
+try {
+  const itemsList = order.items
+    .map((i) => `${i.name} × ${i.qty} — $${i.price * i.qty}`)
+    .join("\n");
+
+  const formData = new FormData();
+  formData.append("order_number", order.orderNumber);
+  formData.append("customer_name", name);
+  formData.append("customer_email", email);
+  formData.append("customer_phone", phone);
+  formData.append("delivery_address", `${address}, ${city}, ${state}`);
+  formData.append("payment_method", payment);
+  formData.append("items_ordered", itemsList);
+  formData.append("order_total", "$" + total);
+
+  fetch("https://formspree.io/f/mkjoprly", {
+    method: "POST",
+    body: formData,
+    headers: { Accept: "application/json" }
+  });
+} catch (err) {
+  console.log("Order email failed:", err);
+}
+
     // Clear cart
     cart = [];
     saveCart();
