@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Debug LocalStorage</title>
+  <style>
+    body { font-family: sans-serif; padding: 20px; background: #f4f4f4; }
+    pre { background: white; padding: 15px; border-radius: 8px; overflow-x: auto; }
+    h2 { color: #1a73e8; }
+  </style>
+</head>
+<body>
+  <h2>ShopNow Local Storage Data</h2>
+  <div id="output"></div>
+
+  <script>
+    const output = document.getElementById("output");
+    const keys = ["shopnow_cart", "shopnow_wishlist", "shopnow_orders", "shopnow_user", "shopnow_reviews", "shopnow_recent"];
+    
+    let html = "";
+    keys.forEach(key => {
+      const data = localStorage.getItem(key);
+      html += `<h3>${key}:</h3>`;
+      html += `<pre>${data ? JSON.stringify(JSON.parse(data), null, 2) : "Empty"}</pre>`;
+    });
+    
+    output.innerHTML = html;
+  </script>
+</body>
+</html>
